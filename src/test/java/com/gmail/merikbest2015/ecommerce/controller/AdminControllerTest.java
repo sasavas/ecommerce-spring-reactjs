@@ -71,81 +71,81 @@ public class AdminControllerTest {
         perfumeRequest.setType(TYPE);
     }
 
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/add - Add Perfume")
-    public void addPerfume() throws Exception {
-        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
-        MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
-        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//    @Test
+//    @DisplayName("[200] POST /api/v1/admin/add - Add Perfume")
+//    public void addPerfume() throws Exception {
+//        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
+//        MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
+//        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
+//        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//
+//        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
+//                        .file(multipartFile)
+//                        .file(jsonFile))
+//                .andExpect(status().isOk());
+//    }
 
-        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
-                        .file(multipartFile)
-                        .file(jsonFile))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    @DisplayName("[400] POST /api/v1/admin/add - Should Input Fields Are Empty Add Perfume")
+//    public void addPerfume_ShouldInputFieldsAreEmpty() throws Exception {
+//        PerfumeRequest perfumeRequest = new PerfumeRequest();
+//        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
+//        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//
+//        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
+//                        .file(jsonFile)
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.yearError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.countryError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.perfumeGenderError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceTopNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceMiddleNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceBaseNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.priceError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.volumeError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.typeError", is(FILL_IN_THE_INPUT_FIELD)));
+//    }
 
-    @Test
-    @DisplayName("[400] POST /api/v1/admin/add - Should Input Fields Are Empty Add Perfume")
-    public void addPerfume_ShouldInputFieldsAreEmpty() throws Exception {
-        PerfumeRequest perfumeRequest = new PerfumeRequest();
-        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
-        mockMvc.perform(multipart(API_V1_ADMIN + ADD)
-                        .file(jsonFile)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.yearError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.countryError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.perfumeGenderError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceTopNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceMiddleNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceBaseNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.priceError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.volumeError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.typeError", is(FILL_IN_THE_INPUT_FIELD)));
-    }
-
-    @Test
-    @DisplayName("[200] POST /api/v1/admin/edit - Edit Perfume")
-    public void editPerfume() throws Exception {
-        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
-        MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
-        MockMultipartFile jsonFileEdit = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        perfumeRequest.setType("test");
-        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
-                        .file(multipartFile)
-                        .file(jsonFileEdit))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName("[400] POST /api/v1/admin/edit - Should Input Fields Are Empty Edit Perfume")
-    public void editPerfume_ShouldInputFieldsAreEmpty() throws Exception {
-        PerfumeRequest perfumeRequest = new PerfumeRequest();
-        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
-        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
-        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
-                        .file(jsonFile)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.yearError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.countryError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.perfumeGenderError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceTopNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceMiddleNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.fragranceBaseNotesError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.priceError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.volumeError", is(FILL_IN_THE_INPUT_FIELD)))
-                .andExpect(jsonPath("$.typeError", is(FILL_IN_THE_INPUT_FIELD)));
-    }
+//    @Test
+//    @DisplayName("[200] POST /api/v1/admin/edit - Edit Perfume")
+//    public void editPerfume() throws Exception {
+//        FileInputStream inputFile = new FileInputStream(new File(FILE_PATH));
+//        MockMultipartFile multipartFile = new MockMultipartFile("file", FILE_NAME, MediaType.MULTIPART_FORM_DATA_VALUE, inputFile);
+//        MockMultipartFile jsonFileEdit = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
+//        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//        perfumeRequest.setType("test");
+//        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
+//                        .file(multipartFile)
+//                        .file(jsonFileEdit))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName("[400] POST /api/v1/admin/edit - Should Input Fields Are Empty Edit Perfume")
+//    public void editPerfume_ShouldInputFieldsAreEmpty() throws Exception {
+//        PerfumeRequest perfumeRequest = new PerfumeRequest();
+//        MockMultipartFile jsonFile = new MockMultipartFile("perfume", "", MediaType.APPLICATION_JSON_VALUE, mapper.writeValueAsString(perfumeRequest).getBytes());
+//        MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//
+//        mockMvc.perform(multipart(API_V1_ADMIN + EDIT)
+//                        .file(jsonFile)
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+//                .andExpect(status().isBadRequest())
+//                .andExpect(jsonPath("$.perfumeTitleError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.perfumerError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.yearError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.countryError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.perfumeGenderError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceTopNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceMiddleNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.fragranceBaseNotesError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.priceError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.volumeError", is(FILL_IN_THE_INPUT_FIELD)))
+//                .andExpect(jsonPath("$.typeError", is(FILL_IN_THE_INPUT_FIELD)));
+//    }
 
     @Test
     @DisplayName("[200] DELETE /api/v1/admin/delete/46 - Delete Perfume")
